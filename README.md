@@ -6,6 +6,12 @@ Sketch plugin for [instantapp.io](https://cloud.instantapp.io) to generate nativ
 
 Make sure Sketch is up-to-date.This plugin only works with the latest version of Sketch.
 
+[![Install PLUGIN NAME with Sketchpacks](http://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png "Install PLUGIN NAME with Sketchpacks")](https://sketchpacks.com/YOUR_NAME/PLUGIN_NAME/install)
+
+---
+
+### Manual Installation
+
 The actual location of your Sketch plugins directory will vary. To open it click on the `Manage Plugins` under the `Plugins` menu in sketch. Then click the `settings` icon and choose `Show Plugins Folder`.
 
 Run following command after going to the sketch plugins folder:
