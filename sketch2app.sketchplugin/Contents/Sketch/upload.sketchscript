@@ -1,0 +1,43 @@
+// Merged assets generation for Android, windows phone and iOS devices
+@import 'library/common.js'
+
+var onRun = function(context) {
+  var home_folder = "/Users/" + NSUserName();
+  new AppSandbox().authorize(home_folder, function() {
+    var document = context.document, config, prefix, factors;
+    l4c.context = context;
+    l4c.document = document;
+    config = l4c.readConfig(context);
+
+    factors = [
+      {
+          folder: '',
+          scale: 1.0,
+          suffix: '',
+      },
+      {
+          folder: '',
+          scale: 2.0,
+          suffix: '@2x',
+      },
+      {
+          folder: '',
+          scale: 3.0,
+          suffix: '@3x',
+      },
+    ];
+
+    var originalSelection = document.selectedLayers();
+    document.setSelectedLayers(document.allExportableLayers());
+
+    var selection = document.selectedLayers();
+    if (selection == null || [selection count] == 0) {
+      l4c.showAlert("No exportable layers found.", context);
+    }
+    else {
+      l4c.loginAndExport('ios', factors, context, document, selection, config);
+    }
+
+    document.setSelectedLayers(originalSelection);
+  });
+}

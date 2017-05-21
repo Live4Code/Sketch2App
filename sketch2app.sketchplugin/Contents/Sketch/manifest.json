@@ -1,0 +1,36 @@
+{
+  "name": "Sketch2App",
+  "description": "Create native app instantly",
+  "version": 0.1,
+  "identifier": "instantapp.io.sketch2app",
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "Upload Sketch File",
+      "identifier": "upload",
+      "shortcut": "ctrl alt shift 1",
+      "script": "upload.sketchscript"
+    },
+    {
+      "name": "Install SketchTool",
+      "identifier": "install-sketchtool",
+      "shortcut": "ctrl alt shift 2",
+      "script": "installSketchTool.sketchscript"
+    },
+    {
+      "name": "Log out",
+      "identifier": "logout",
+      "shortcut": "ctrl alt shift 3",
+      "script": "logout.sketchscript"
+    }
+  ],
+  "menu": {
+    "title": "📲 Sketch2App",
+    "items": [
+      "upload",
+      "install-sketchtool",
+      "logout"
+    ]
+  }
+}

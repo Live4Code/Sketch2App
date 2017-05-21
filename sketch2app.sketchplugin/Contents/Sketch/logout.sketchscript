@@ -1,0 +1,5 @@
+@import 'library/common.js'
+
+var onRun = function(context) {
+  l4c.logoutFromSketch(context);
+};
