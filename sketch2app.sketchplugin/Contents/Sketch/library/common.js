@@ -3,7 +3,7 @@
 
 var l4c = {
   "defs": {
-    "pluginVersion": "Version 0.1.0",
+    "pluginVersion": "Version 0.2.0",
     "apiBase": "https://cloud.instantapp.io/",
     "apiSignin": "login",
     "apiUpload": "sketch",
@@ -36,8 +36,11 @@ var l4c = {
     [[NSUserDefaults standardUserDefaults] synchronize]
   },
 
-  showMessage: function(message, document){
-    [document showMessage:message]
+  showMessage: function(message, context){
+    // var document = context.document
+    // document.showMessage(message)
+    var sketch = context.api()
+    sketch.alert("Sketch2App", message);
   },
 
   showAlert: function(message, context){
@@ -51,11 +54,6 @@ var l4c = {
     alert.addButtonWithTitle("OK")
     alert.runModal()
   },
-
-  // alert: function(msg) {
-  //   var app = [NSApplication sharedApplication];
-  //   [app displayDialog:msg];
-  // },
 
   isUpdated: function(){
     var version = l4c.getSavedValueFromKey("currentVersion")
@@ -165,9 +163,9 @@ var l4c = {
     var outputArray = [NSJSONSerialization JSONObjectWithData:outputData options:NSJSONReadingAllowFragments error:nil]
     log(outputString)
     if(outputString != "success"){
-      this.showAlert(outputArray["message"], context)
+      this.showMessage(outputArray["message"], context)
     } else {
-      this.showAlert("upload success", context)
+      this.showMessage("upload success", context)
     }
   },
 
