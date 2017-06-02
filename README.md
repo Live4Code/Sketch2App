@@ -1,4 +1,5 @@
 # Sketch2App
+[![Download from Sketchpacks.com](https://badges.sketchpacks.com/plugins/instantapp.io.sketch2app/version.svg)](https://api.sketchpacks.com/v1/plugins/instantapp.io.sketch2app/download) [![Compatible Sketch Version](https://badges.sketchpacks.com/plugins/instantapp.io.sketch2app/compatibility.svg)](https://sketchpacks.com/Live4Code/Sketch2App)
 
 Sketch plugin for [instantapp.io](https://cloud.instantapp.io) to generate native application instantly.
 
