@@ -69,39 +69,6 @@ var openInFinder = function(path) {
     [finderTask launch];
 }
 
-var createPrefixCheckbox = function(item, flag) {
-    flag = ( flag == false ) ? NSOffState : NSOnState;
-    var checkbox = [[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 300, 25)];
-    [checkbox setButtonType: NSSwitchButton];
-    [checkbox setBezelStyle: 0];
-    [checkbox setTitle: item.name];
-    [checkbox setTag: item.value];
-    [checkbox setState: flag];
-
-    return checkbox;
-}
-
-var createOpenCheckbox = function(item, flag) {
-    flag = ( flag == false ) ? NSOffState : NSOnState;
-    var checkbox = [[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 300, 25)];
-    [checkbox setButtonType: NSSwitchButton];
-    [checkbox setBezelStyle: 0];
-    [checkbox setTitle: item.name];
-    [checkbox setTag: item.value];
-    [checkbox setState: flag];
-
-    return checkbox;
-}
-
-var createSelect = function(items, selectedItemIndex) {
-    selectedItemIndex = (selectedItemIndex > -1) ? selectedItemIndex : 0;
-    var comboBox = [[NSComboBox alloc] initWithFrame:NSMakeRect(0, 0, 300, 25)];
-    [comboBox addItemsWithObjectValues:items];
-    [comboBox selectItemAtIndex:selectedItemIndex];
-
-    return comboBox;
-}
-
 var exec = function(document, command) {
   var task = NSTask.alloc().init();
   var pipe = NSPipe.pipe();
@@ -140,8 +107,6 @@ var helpers = {
     removeFileOrFolder: removeFileOrFolder,
     readPluginPath: readPluginPath,
     openInFinder: openInFinder,
-    createSelect: createSelect,
-    createPrefixCheckbox: createPrefixCheckbox,
-    createOpenCheckbox: createOpenCheckbox,
-    exec: exec
+    exec: exec,
+    getCurrentDirectory: getCurrentDirectory
 }

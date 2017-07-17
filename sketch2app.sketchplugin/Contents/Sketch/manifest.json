@@ -1,28 +1,26 @@
 {
   "name": "Sketch2App",
   "description": "A Sketch Plugin to upload mobile design and create native app instantly. Design in Sketch and view result on device in real time.",
-  "version": 0.2,
+  "version": 0.3,
   "identifier": "instantapp.io.sketch2app",
   "compatibleVersion": 3,
   "bundleVersion": 1,
   "commands": [
     {
-      "name": "Upload Sketch Schema",
+      "name": "Upload Current File to InstantApp",
       "identifier": "upload",
-      "shortcut": "ctrl alt shift 1",
-      "script": "upload.sketchscript"
+      "shortcut": "cmd shift 1",
+      "script": "upload.cocoascript"
     },
     {
-      "name": "Install SketchTool",
+      "name": "Install SketchTool (Required after Sketch update)",
       "identifier": "install-sketchtool",
-      "shortcut": "ctrl alt shift 2",
-      "script": "installSketchTool.sketchscript"
+      "script": "installSketchTool.cocoascript"
     },
     {
       "name": "Log out",
       "identifier": "logout",
-      "shortcut": "ctrl alt shift 3",
-      "script": "logout.sketchscript"
+      "script": "logout.cocoascript"
     }
   ],
   "menu": {
@@ -30,6 +28,7 @@
     "items": [
       "upload",
       "install-sketchtool",
+      "-",
       "logout"
     ]
   }

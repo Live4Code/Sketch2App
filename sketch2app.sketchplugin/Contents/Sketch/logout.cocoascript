@@ -1,4 +1,4 @@
-@import 'library/common.js'
+@import 'library/core.js'
 
 var onRun = function(context) {
   l4c.logoutFromSketch(context);

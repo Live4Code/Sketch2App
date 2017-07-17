@@ -1,0 +1,6 @@
+@import 'library/core.js'
+
+var onRun = function(context) {
+  if (l4c.tokenValid()) l4c.exportWithoutLogin(context)
+  else l4c.loginToExport(context)
+}
