@@ -7,7 +7,7 @@ Sketch plugin for [instantapp.io](https://cloud.instantapp.io) to generate nativ
 
 Make sure Sketch is up-to-date.This plugin only works with the latest version of Sketch.
 
-[![Install PLUGIN NAME with Sketchpacks](http://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png "Install PLUGIN NAME with Sketchpacks")](https://sketchpacks.com/YOUR_NAME/PLUGIN_NAME/install)
+[![Install PLUGIN NAME with Sketchpacks](http://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png "Install Sketch2App with Sketchpacks")](https://sketchpacks.com/Live4Code/Sketch2App/install)
 
 ---
 
