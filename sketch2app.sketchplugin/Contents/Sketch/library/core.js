@@ -1,27 +1,26 @@
-@import 'library/sandbox.js'
 @import 'library/functions.js'
 
 var l4c = {
   "defs": {
-    "pluginVersion": "Version 0.3.0",
+    "pluginVersion": "Version 0.3.1",
     "apiBase": "https://cloud.instantapp.io/",
     "apiSignin": "login",
     "apiUpload": "sketch",
     "apiCheck": "check",
-    "localFolder": "assets",
+    "localFolder": "appchef",
     "factors": [
-      {
-          "scale": 1.0,
-          "suffix": "",
-      },
+      // {
+      //     "scale": 1.0,
+      //     "suffix": "",
+      // },
       {
           "scale": 2.0,
           "suffix": "@2x",
       },
-      {
-          "scale": 3.0,
-          "suffix": "@3x",
-      }
+      // {
+      //     "scale": 3.0,
+      //     "suffix": "@3x",
+      // }
     ]
   },
 
@@ -49,11 +48,6 @@ var l4c = {
 
   showAlert: function(message, context){
     var alert = NSAlert.alloc().init()
-    var plugin = context.plugin
-    var imageFilePath=[plugin urlForResourceNamed:"logo.png"]
-    var imageData = [NSData dataWithContentsOfURL:imageFilePath]
-    var image = NSImage.alloc().initWithData(imageData)
-    alert.setIcon(image)
     alert.setMessageText(message)
     alert.addButtonWithTitle("OK")
     alert.runModal()
@@ -98,11 +92,6 @@ var l4c = {
     alert.addButtonWithTitle("Cancel")
     alert.setAccessoryView(accessoryView)
     alert.setMessageText("Click Upload to start. Upload will take some time. After complete, you will see success message in a new modal dialog.")
-    var plugin = context.plugin
-    var imageFilePath=[plugin urlForResourceNamed:"logo.png"]
-    var imageData = [NSData dataWithContentsOfURL:imageFilePath]
-    var image = NSImage.alloc().initWithData(imageData)
-    alert.setIcon(image)
     var responseCode = alert.runModal()
     return responseCode
   },
@@ -126,12 +115,6 @@ var l4c = {
 
     [[alert window] setInitialFirstResponder:emailInputField]
     [emailInputField setNextKeyView:passwordInputField]
-
-    var plugin = context.plugin
-    var imageFilePath=[plugin urlForResourceNamed:"logo.png"]
-    var imageData = [NSData dataWithContentsOfURL:imageFilePath]
-    var image = NSImage.alloc().initWithData(imageData)
-    alert.setIcon(image)
 
     var responseCode = alert.runModal()
     return [responseCode, emailInputField.stringValue(), passwordInputField.stringValue()]
@@ -185,6 +168,7 @@ var l4c = {
     var selection = document.allExportableLayers()
     var baseDir = helpers.getCurrentDirectory(document)
     var filename = document.fileURL().lastPathComponent()
+    helpers.removeFileOrFolder(baseDir + "/" + l4c.defs.localFolder)
     for (var i = 0; i < [selection count]; i++) {
       var layer = selection[i]
       l4c.processSlice(layer, document)
@@ -204,9 +188,10 @@ var l4c = {
       var suffix = l4c.defs.factors[i].suffix
       var version = l4c.makeSliceAndResizeWithFactor(slice, scale)
       var fileName = baseDir + "/" + l4c.defs.localFolder + "/images/" + sliceName + suffix + ".png"
-      var iosFileName = baseDir + "/" + l4c.defs.localFolder + "/ios/" + sliceName + suffix + ".png" //for backward compatiblity, save all images also in the ios folder
       [document saveArtboardOrSlice: version toFile: fileName]
-      [document saveArtboardOrSlice: version toFile: iosFileName]
+      //don't save again in ios folder
+      //var iosFileName = baseDir + "/" + l4c.defs.localFolder + "/ios/" + sliceName + suffix + ".png"
+      //[document saveArtboardOrSlice: version toFile: iosFileName]
       log("Saved " + fileName)
     }
   },
