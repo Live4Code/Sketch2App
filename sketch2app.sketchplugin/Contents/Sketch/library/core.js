@@ -2,8 +2,8 @@
 
 var l4c = {
   "defs": {
-    "pluginVersion": "Version 0.3.1",
-    "apiBase": "https://cloud.instantapp.io/",
+    "pluginVersion": "Version 0.3.2",
+    "apiBase": "https://cloud.appchef.io/",
     "apiSignin": "login",
     "apiUpload": "sketch",
     "apiCheck": "check",
@@ -80,7 +80,7 @@ var l4c = {
       if (res.message == "success") return true
       else return false
     } else {
-      l4c.showAlert("😞 InstantApp is not working. Please ping us on Slack to resolve this.", context)
+      l4c.showAlert("😞 Token has expired. Please login again.", context)
       return false
     }
   },
@@ -150,7 +150,7 @@ var l4c = {
       var response = l4c.loginWithEmailAndPassword(response[1], response[2])
       l4c.showMessage("Login Success. Generating Schema ...", context)
       if (response == 1) {
-        l4c.export(context)
+        l4c.exportSchema(context)
       }
       else {
         l4c.showAlert("Something went wrong. Please check your credentials and try again", context)
@@ -160,22 +160,33 @@ var l4c = {
 
   exportWithoutLogin: function(context) {
     var response = l4c.showUploadDialog(context)
-    if (response == 1000) l4c.export(context)
+    if (response == 1000) l4c.exportSchema(context)
   },
 
-  export: function(context) {
+  exportSchema: function(context) {
+    var document = context.document
+    var baseDir = helpers.getCurrentDirectory(document)
+    var filename = document.fileURL().lastPathComponent()
+    helpers.removeFileOrFolder(baseDir + "/" + l4c.defs.localFolder)
+    helpers.removeFileOrFolder(baseDir + "/" + l4c.defs.localFolder + "-schema.zip")
+    helpers.removeFileOrFolder(baseDir + "/" + l4c.defs.localFolder + "-assets.zip")
+    helpers.createFolderAtPath(baseDir + "/" + l4c.defs.localFolder)
+    helpers.exec(document, "sketchtool dump \"" + filename + "\" > " + l4c.defs.localFolder + "/raw.json")
+    helpers.exec(document, "zip -r -X " + l4c.defs.localFolder + "-schema.zip " + l4c.defs.localFolder)
+    l4c.upload(baseDir + "/" + l4c.defs.localFolder + "-schema.zip", filename, 'schema', context)
+  },
+
+  exportAssets: function(context) {
     var document = context.document
     var selection = document.allExportableLayers()
     var baseDir = helpers.getCurrentDirectory(document)
     var filename = document.fileURL().lastPathComponent()
-    helpers.removeFileOrFolder(baseDir + "/" + l4c.defs.localFolder)
     for (var i = 0; i < [selection count]; i++) {
       var layer = selection[i]
       l4c.processSlice(layer, document)
     }
-    helpers.exec(document, "sketchtool dump \"" + filename + "\" > " + l4c.defs.localFolder + "/raw.json")
-    helpers.exec(document, "zip -r -X " + l4c.defs.localFolder + ".zip " + l4c.defs.localFolder)
-    l4c.upload(baseDir + "/" + l4c.defs.localFolder + ".zip", filename, context)
+    helpers.exec(document, "zip -r -X " + l4c.defs.localFolder + "-assets.zip " + l4c.defs.localFolder + "/images")
+    l4c.upload(baseDir + "/" + l4c.defs.localFolder + "-assets.zip", filename, 'assets', context)
   },
 
   processSlice: function(slice, document) {
@@ -224,11 +235,11 @@ var l4c = {
     return slice
   },
 
-  upload: function(filePath, project, context) {
+  upload: function(filePath, project, type, context) {
     var token = l4c.getSavedValueFromKey("idToken")
     var task = NSTask.alloc().init()
     task.setLaunchPath("/usr/bin/curl")
-    var args = NSArray.arrayWithObjects("-X", "POST", "-H", "Authorization: Bearer " + token, "-F", "project=" + project, "-F", "assets=@" + filePath, l4c.defs.apiBase + l4c.defs.apiUpload, nil)
+    var args = NSArray.arrayWithObjects("-X", "POST", "-H", "Authorization: Bearer " + token, "-F", "project=" + project, "-F", "type=" + type, "-F", "assets=@" + filePath, l4c.defs.apiBase + l4c.defs.apiUpload, nil)
     task.setArguments(args)
     var outputPipe = [NSPipe pipe]
     [task setStandardOutput:outputPipe]
@@ -241,7 +252,12 @@ var l4c = {
     if(outputArray["message"] != "success"){
       l4c.showAlert(outputArray["message"], context)
     } else {
-      l4c.showAlert("👍 Upload success. Please check cloud.instantapp.io for app building progress.", context)
+      if (type === 'schema') {
+        l4c.showMessage("Sketch schema upload success. Now uploading image assets, upload time depends on the size of assets. Please wait and don't close sketch ...", context)
+        l4c.exportAssets(context)
+      } else {
+        l4c.showAlert("👍 Upload success. Please check cloud.appchef.io for app building progress.", context)
+      }
     }
   },
 
