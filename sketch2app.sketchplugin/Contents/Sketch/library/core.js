@@ -195,14 +195,15 @@ var l4c = {
 
   processSlice: function(slice, document) {
     var frame = [slice frame]
-    var sliceName = [slice name]
+    var objectID = [slice objectID]
+    var sliceName = encodeURIComponent([slice name])
     var baseDir = helpers.getCurrentDirectory(document)
 
     for (var i = 0; i < l4c.defs.factors.length; i++) {
       var scale = l4c.defs.factors[i].scale
       var suffix = l4c.defs.factors[i].suffix
       var version = l4c.makeSliceAndResizeWithFactor(slice, scale)
-      var fileName = baseDir + "/" + l4c.defs.localFolder + "/images/" + sliceName + suffix + ".png"
+      var fileName = baseDir + "/" + l4c.defs.localFolder + "/images/" + sliceName + "-" + objectID + suffix + ".png"
       [document saveArtboardOrSlice: version toFile: fileName]
       log("Saved " + fileName)
     }
