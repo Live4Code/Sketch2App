@@ -1,9 +1,11 @@
 {
   "name": "Sketch2App",
-  "description": "A Sketch Plugin to upload mobile design and create native app instantly. Design in Sketch and view result on device in real time.",
-  "version": "0.4.1",
+  "description":
+    "A Sketch Plugin to upload mobile design and create native app instantly. Design in Sketch and view result on device in real time.",
+  "version": "0.4.2",
   "identifier": "instantapp.io.sketch2app",
-  "appcast": "https://api.sketchpacks.com/v1/plugins/instantapp.io.sketch2app/appcast",
+  "appcast":
+    "https://api.sketchpacks.com/v1/plugins/instantapp.io.sketch2app/appcast",
   "compatibleVersion": 3,
   "bundleVersion": 1,
   "commands": [
@@ -26,11 +28,6 @@
   ],
   "menu": {
     "title": "📲 Sketch2App",
-    "items": [
-      "upload",
-      "install-sketchtool",
-      "-",
-      "logout"
-    ]
+    "items": ["upload", "install-sketchtool", "-", "logout"]
   }
 }

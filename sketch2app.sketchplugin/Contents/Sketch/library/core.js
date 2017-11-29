@@ -3,7 +3,7 @@
 
 var l4c = {
   "defs": {
-    "pluginVersion": "Version 0.4.0",
+    "pluginVersion": "Version 0.4.2",
     "apiBase": "https://cloud.appchef.io/",
     "apiSignin": "login",
     "apiUpload": "sketch",
@@ -106,7 +106,7 @@ var l4c = {
     [request setValue:"sketch" forHTTPHeaderField:"User-Agent"]
     [request setValue:"application/json" forHTTPHeaderField:"Content-Type"]
 
-    var parameter = NSDictionary.alloc().initWithObjectsAndKeys(email, @"username", password, @"password", nil)
+    var parameter = {"username": email, "password": password}
     var postData = [NSJSONSerialization dataWithJSONObject:parameter options:0 error:nil]
     [request setHTTPBody:postData]
 
@@ -243,7 +243,7 @@ var l4c = {
     var task = NSTask.alloc().init()
     var logging = project + ", "
     task.setLaunchPath("/usr/bin/curl")
-    var args = NSArray.arrayWithObjects("-X", "POST", "-H", "Authorization: Bearer " + token, "-F", "project=" + project, "-F", "type=" + type, "-F", "assets=@" + filePath, l4c.defs.apiBase + l4c.defs.apiUpload, nil)
+    var args = NSArray.arrayWithArray(["-X", "POST", "-H", "Authorization: Bearer " + token, "-F", "project=" + project, "-F", "type=" + type, "-F", "assets=@" + filePath, l4c.defs.apiBase + l4c.defs.apiUpload])
     task.setArguments(args)
     var outputPipe = [NSPipe pipe]
     [task setStandardOutput:outputPipe]
@@ -278,7 +278,7 @@ var l4c = {
     [request setValue:"application/json" forHTTPHeaderField:"Content-Type"]
     [request setValue:token forHTTPHeaderField:"Authorization"]
 
-    var parameter = NSDictionary.alloc().initWithObjectsAndKeys(message, @"message", level, @"level", nil)
+    var parameter = {"message": message, "level": level};
     var postData = [NSJSONSerialization dataWithJSONObject:parameter options:0 error:nil]
     [request setHTTPBody:postData]
     [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil]
