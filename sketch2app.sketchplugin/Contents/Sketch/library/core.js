@@ -3,7 +3,7 @@
 
 var l4c = {
   "defs": {
-    "pluginVersion": "Version 0.4.2",
+    "pluginVersion": "Version 0.4.3",
     "apiBase": "https://cloud.appchef.io/",
     "apiSignin": "login",
     "apiUpload": "sketch",
@@ -196,7 +196,7 @@ var l4c = {
   processSlice: function(slice, document) {
     var frame = [slice frame]
     var objectID = [slice objectID]
-    var sliceName = encodeURIComponent([slice name])
+    var sliceName = ([slice name]).replace(/[^A-Za-z0-9._-]/g, '-')
     var baseDir = helpers.getCurrentDirectory(document)
 
     for (var i = 0; i < l4c.defs.factors.length; i++) {
