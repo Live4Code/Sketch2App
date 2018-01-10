@@ -166,13 +166,14 @@ var l4c = {
       helpers.exec(document, "zip -r -X " + l4c.defs.localFolder + "-schema.zip " + l4c.defs.localFolder)
     } catch (err) {
       ga.send(context, {exd: 'CompressError', uid: uid, el: uid, ev: 1})
-      l4c.showAlert("Compress the appchef folder failed. Please contact us to fix the problem.", context)
+      l4c.showAlert("Compress schema folder " + l4c.defs.localFolder + " failed. Please contact us to fix the problem.", context)
       l4c.logger(context, "error", logging + "fail to compress appchef schema folder. Error is " + JSON.stringify(err))  
     }
     l4c.upload(baseDir + "/" + l4c.defs.localFolder + "-schema.zip", filename, 'schema', context)
   },
 
   exportAssets: function(context) {
+    helpers.createFolderAtPath(baseDir + "/" + l4c.defs.localFolder + "/images")
     var uid = l4c.getSavedValueFromKey("userId")
     var document = context.document
     var selection = document.allExportableLayers()
@@ -187,8 +188,8 @@ var l4c = {
     try {
       helpers.exec(document, "zip -r -X " + l4c.defs.localFolder + "-assets.zip " + l4c.defs.localFolder + "/images")
     } catch (err) {
-      l4c.showAlert("Compress the appchef folder failed. Please contact us to fix the problem.", context)
-      l4c.logger(context, "error", logging + "fail to compress appchef schema folder. Error is " + JSON.stringify(err))
+      l4c.showAlert("Compress assets directory " + l4c.defs.localFolder + "/images faild. Please contact us to fix the problem.", context)
+      l4c.logger(context, "error", logging + "fail to compress appchef assets folder. Error is " + JSON.stringify(err))
     }
     l4c.upload(baseDir + "/" + l4c.defs.localFolder + "-assets.zip", filename, 'assets', context)
   },
