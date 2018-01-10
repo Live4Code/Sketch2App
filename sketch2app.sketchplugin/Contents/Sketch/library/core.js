@@ -3,7 +3,7 @@
 
 var l4c = {
   "defs": {
-    "pluginVersion": "Version 0.4.4",
+    "pluginVersion": "Version 0.4.5",
     "apiBase": "https://cloud.appchef.io/",
     "apiSignin": "login",
     "apiUpload": "sketch",
