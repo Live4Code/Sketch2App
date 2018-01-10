@@ -3,7 +3,7 @@
 
 var l4c = {
   "defs": {
-    "pluginVersion": "Version 0.4.3",
+    "pluginVersion": "Version 0.4.4",
     "apiBase": "https://cloud.appchef.io/",
     "apiSignin": "login",
     "apiUpload": "sketch",
@@ -155,7 +155,7 @@ var l4c = {
     helpers.createFolderAtPath(baseDir + "/" + l4c.defs.localFolder)
     l4c.logger(context, "debug", logging + "create local appchef folder " + l4c.defs.localFolder)
     try {
-      helpers.exec(document, "sketchtool dump \"" + filename + "\" > " + l4c.defs.localFolder + "/raw.json")
+      helpers.exec(document, "/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool dump \"" + filename + "\" > " + l4c.defs.localFolder + "/raw.json")
       l4c.logger(context, "debug", logging + "generated sketch json schema")      
     } catch (err) {
       ga.send(context, {exd: 'SketchToolDumpError', uid: uid, el: uid, ev: 1})

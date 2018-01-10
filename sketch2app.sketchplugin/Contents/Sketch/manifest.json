@@ -2,7 +2,7 @@
   "name": "Sketch2App",
   "description":
     "A Sketch Plugin to upload mobile design and create native app instantly. Design in Sketch and view result on device in real time.",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "identifier": "instantapp.io.sketch2app",
   "appcast":
     "https://api.sketchpacks.com/v1/plugins/instantapp.io.sketch2app/appcast",
